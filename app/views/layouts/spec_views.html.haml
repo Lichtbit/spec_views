@@ -1,0 +1,198 @@
+!!!
+%html
+  %head
+    %meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %title Spec Views
+    %meta{charset: "utf-8"}/
+    %meta{content: "width=device-width, initial-scale=1, shrink-to-fit=no", name: "viewport"}/
+    %meta{name: "turbolinks-cache-control", content: "no-cache"}/
+    = csrf_meta_tags
+    = csp_meta_tag
+    :sass
+      $dark-bg: #252526
+      $dark-bg-light: #2A2D2E
+      $dark-bg-lighter: #37373D
+      $dark-text: #DADADA
+
+      $accept-bg: #5fa285
+      $accept-text: $dark-text
+
+      $reject-bg: #d27575
+      $reject-text: $dark-text
+
+      $highlight: #0E639C
+      $challenger: $highlight
+      $outdated: $reject-bg
+
+      *
+        box-sizing: border-box
+        margin: 0
+        padding: 0
+
+      body
+        font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"
+        background: #252526
+        color: #FFF
+        margin: 0
+        padding: 0
+
+      .iframes
+        position: relative
+        z-index: 5
+        display: flex
+        justify-content: space-between
+        align-items: stretch
+        height: calc(100vh - 50px)
+        overflow: auto
+
+        > *
+          width: calc(50% - 5px)
+          height: 100%
+          display: flex
+          flex-direction: column
+          justify-content: stretch
+
+          &.w-100
+            width: calc(100% - 5px)
+
+      iframe
+        border: 0
+        margin: 0
+        padding: 0
+        width: 100%
+        flex-grow: 1
+
+      h2
+        margin: 0
+        padding: 4px 0
+        text-align: center
+        font-weight: 300
+        text-transform: uppercase
+        font-size: 12px
+        line-height: 1
+
+      .footer
+        position: relative
+        z-index: 10
+        display: flex
+        justify-content: space-between
+        height: 50px
+        box-shadow: 0px -1px 4px rgba(0, 0, 0, 0.65)
+
+      .info
+        padding: 0 0 0 10px
+        font-size: 14px
+        display: flex
+        align-items: center
+
+        > div
+          padding: .5rem .2rem
+
+      .actions
+        display: flex
+        justify-content: flex-end
+        padding: 2px 2rem 0 0
+
+        > *
+          margin-left: 2rem
+
+      form.button_to
+        display: flex
+
+      input[type=submit], .btn
+        display: block
+        padding: .5rem .5rem .4rem
+        border: 0 solid $dark-bg-lighter
+        border-width: 0 0 8px 0
+        color: $dark-text
+        border-radius: 0
+        background: $dark-bg-light
+        cursor: pointer
+        font-size: .9rem
+        line-height: 1.75
+        min-width: 5rem
+        text-align: center
+
+        &:hover
+          background: $dark-bg-lighter
+
+        &.accept
+          border-color: $accept-bg
+          color: $accept-text
+        &.reject
+          border-color: $reject-bg
+          color: $reject-text
+        &.btn
+          border-color: $highlight
+        &.disabled
+          opacity: 0.5
+          cursor: default
+          &:hover
+            background: $dark-bg-light
+
+      a
+        color: $dark-text
+        text-decoration: none
+
+      .directories
+        display: flex
+        flex-direction: column
+        align-items: center
+        margin: 5rem auto 0
+        list-style-type: none
+        padding: 0
+
+        > div
+          margin-top: 1rem
+          width: 58rem
+        > a
+          display: flex
+          flex: 1 0 auto
+          align-items: stretch
+
+          &:hover, &:focus
+            background-color: $dark-bg-light
+          &:active
+            background-color: $dark-bg-lighter
+
+          &.challenger
+            > div:first-child
+              border-color: $challenger
+              text-align: center
+          &.outdated
+            > div:first-child
+              border-color: $outdated
+              text-align: center
+
+          > div
+            padding: .5rem
+
+          > :first-child
+            width: 8rem
+            border: 0 solid transparent
+            border-left-width: 1rem
+            font-size: 0.75rem
+            display: flex
+            align-items: center
+
+          > :last-child
+            display: flex
+            flex: 1 0 auto
+            width: 50rem
+            align-items: center
+
+            > :nth-child(1)
+              flex-shrink: 0
+              overflow: hidden
+              text-overflow: ellipsis
+              width: 15rem
+              text-align: right
+            > :nth-child(2)
+              flex-shrink: 0
+              padding: 0 1rem
+              text-align: center
+              width: 4rem
+            > :nth-child(3)
+
+  %body
+    = yield

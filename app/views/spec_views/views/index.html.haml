@@ -1,0 +1,28 @@
+.iframes
+  .directories.w-100
+    - @directories.each do |dir|
+      - body = capture do
+        %div
+          %div= dir.controller_name
+          %div= dir.method
+          %div= dir.description
+      - if dir.challenger?
+        = link_to({ action: :compare, id: dir }, class: 'challenger') do
+          %div CHALLENGER
+          = body
+      - elsif dir.last_run < @latest_run
+        = link_to({ action: :preview, id: dir }, class: 'outdated') do
+          %div OUTDATED
+          = body
+      - else
+        = link_to(action: :preview, id: dir) do
+          %div
+          = body
+
+.footer
+  .info
+  .actions
+    - if @directories.any?{ |dir| dir.last_run < @latest_run }
+      = button_to 'Remove Outdated', url_for(action: :destroy_outdated), method: :delete, class: 'reject'
+    - if @directories.any?(&:challenger?)
+      = button_to 'Accept All', url_for(action: :accept_all), method: :post, class: 'accept'
