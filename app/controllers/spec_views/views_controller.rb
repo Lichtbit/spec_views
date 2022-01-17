@@ -96,7 +96,7 @@ module SpecViews
       end
 
       def controller_name
-        splitted_name.first.gsub(/Controller(_.*)$/, 'Controller').gsub('_', '::')
+        splitted_name.first.gsub(/Controller(_.*)$/, 'Controller').gsub(/Controller$/, '').gsub('_', '::')
       end
 
       def method
