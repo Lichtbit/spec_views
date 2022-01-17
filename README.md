@@ -21,14 +21,14 @@ Add this line to your application's Gemfile:
 gem 'spec_views'
 ```
 
+And this to RSpec's rails_helper.rb:
+```ruby
+require 'spec_views/support'
+```
+
 And then execute:
 ```bash
 $ bundle
-```
-
-Or install it yourself as:
-```bash
-$ gem install spec_views
 ```
 
 ## License

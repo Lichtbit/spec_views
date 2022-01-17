@@ -180,3 +180,7 @@ module SpecViews
     end
   end
 end
+
+RSpec.configure do |rspec|
+  rspec.include SpecViews::Support, type: :controller
+end
