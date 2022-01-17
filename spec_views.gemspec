@@ -19,4 +19,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "rails", "~> 5.0"
   spec.add_dependency "rspec-rails", "~> 5.0"
   spec.add_dependency "haml-rails", "~> 2.0"
+  spec.add_dependency "timecop", "~> 0.0"
 end
