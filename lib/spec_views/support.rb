@@ -104,7 +104,7 @@ module SpecViews
       end
 
       def sanitized_body
-        return body if pdf?
+        return remove_headers_from_pdf(body) if pdf?
 
         remove_pack_digests_from_body(
           remove_digests_from_body(body),
@@ -117,6 +117,10 @@ module SpecViews
 
       def remove_pack_digests_from_body(body)
         body.gsub(%r{(packs.*/js/[a-z0-9_]+)(-[a-z0-9]{20})(\.js)}, '\1\3')
+      end
+
+      def remove_headers_from_pdf(pdf)
+        pdf.gsub(/^\/CreationDate.*$/, '')
       end
 
       def put_write_instructions
