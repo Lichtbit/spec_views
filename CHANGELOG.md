@@ -2,17 +2,19 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
-### Added
-- Remove CreationDate-header before comparing PDFs
+### Changed
+- Fix .gitignore hint in [README](./README.md#installation) to allow different file extensions.
+- Remove CreationDate-header before comparing PDFs.
+- Improve [README's Usage section](./README.md#usage).
 
 ## [1.0.1] - 2021-01-17
 ### Added
-- Add .gitignore hint to [README.md](./README.md#installation)
-- Add missing timecop dependency
+- Add .gitignore hint to [README](./README.md#installation).
+- Add missing timecop dependency.
 
 ### Changed
-- Improve view selection screen layout
+- Improve view selection screen layout.
 
 ## [1.0.0] - 2021-01-17
 ### Changed
-- Switch to manual requiring of 'spec_views/support' (see [README.md](./README.md#installation))
+- Switch to manual requiring of 'spec_views/support' (see [README](./README.md#installation)).
