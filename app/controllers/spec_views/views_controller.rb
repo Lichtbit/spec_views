@@ -100,11 +100,11 @@ module SpecViews
       end
 
       def method
-        splitted_name.second
+        splitted_name.second[0, 3]
       end
 
       def description
-        splitted_name.third.humanize
+        splitted_name.third.gsub(/__pdf$/, '').humanize
       end
 
       def last_run

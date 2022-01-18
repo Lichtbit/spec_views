@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - Remove digests from ICO files.
 - Remove ModDate and ID from PDF files.
+- Improve view selection screen layout.
 
 ## [1.1.0] - 2021-01-18
 ### Changed
