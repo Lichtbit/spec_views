@@ -120,7 +120,11 @@ module SpecViews
       end
 
       def remove_headers_from_pdf(pdf)
-        pdf.gsub(/^\/CreationDate.*$/, '')
+        pdf
+          .force_encoding("BINARY")
+          .gsub(/^\/CreationDate \(.*\)$/, '')
+          .gsub(/^\/ModDate \(.*\)$/, '')
+          .gsub(/^\/ID \[<.+><.+>\]$/, '')
       end
 
       def put_write_instructions
