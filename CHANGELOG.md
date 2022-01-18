@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [1.1.0] - 2021-01-18
 ### Changed
 - Fix .gitignore hint in [README](./README.md#installation) to allow different file extensions.
 - Remove CreationDate-header before comparing PDFs.
