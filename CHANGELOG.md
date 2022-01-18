@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [1.1.1] - 2021-01-18
 ### Changed
 - Remove digests from ICO files.
 - Remove ModDate and ID from PDF files.
