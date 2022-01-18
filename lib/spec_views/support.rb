@@ -112,7 +112,7 @@ module SpecViews
       end
 
       def remove_digests_from_body(body)
-        body.gsub(/(-[a-z0-9]{64})(\.css|\.js|\.png|\.jpg|\.jpeg|\.svg|\.gif)/, '\2')
+        body.gsub(/(-[a-z0-9]{64})(\.css|\.js|\.ico|\.png|\.jpg|\.jpeg|\.svg|\.gif)/, '\2')
       end
 
       def remove_pack_digests_from_body(body)

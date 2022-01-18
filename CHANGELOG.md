@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Changed
+- Remove digests from ICO files.
 
 ## [1.1.0] - 2021-01-18
 ### Changed
