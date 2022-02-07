@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "timecop"
+
 module SpecViews
   module Support
     class SpecView

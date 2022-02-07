@@ -2,7 +2,7 @@
 
 module SpecViews
   class ViewsController < ApplicationController
-    skip_authorization_check
+    skip_authorization_check if respond_to?(:skip_authorization_check)
     layout 'spec_views'
 
     def index
