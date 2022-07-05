@@ -55,7 +55,10 @@ module SpecViews
       end
 
       def expect_eq_text
-        context.expect(sanitized_body).to context.eq(read)
+        read_content = read
+        change = read_content.nil? ? 'View has been added.' : 'View has changed.'
+        web_hint = "Open SpecView UI to accept the challenger: #{Rails.configuration.spec_views.ui_url}"
+        context.expect(sanitized_body).to(context.eq(read), "#{change}\n#{web_hint}")
       end
 
       def expect_eq_pdf
@@ -71,9 +74,7 @@ module SpecViews
       def read
         File.read(champion_path)
       rescue Errno::ENOENT
-        raise ReadError, "Cannot find view fixture #{champion_path.to_s.gsub(Rails.root.to_s, '')}\n" \
-        "Create the file by adding the follwing to your spec:\n" \
-        'spec_view.write'
+        nil
       end
 
       def changed?
