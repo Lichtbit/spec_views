@@ -1,0 +1,48 @@
+<div class="iframes">
+  <div class="w-100">
+    <div class="directories">
+      <% @directories.each do |dir| %>
+        <% body = capture do %>
+          <div>
+            <div>
+              <%= dir.controller_name %>
+            </div>
+            <div>
+              <%= dir.method %>
+            </div>
+            <div>
+              <%= dir.description %>
+            </div>
+          </div>
+        <% end %>
+        <% if dir.challenger? %>
+          <%= link_to({ action: :compare, id: dir }, class: 'challenger') do %>
+            <div>CHALLENGER</div>
+            <%= body %>
+          <% end %>
+        <% elsif dir.last_run < @latest_run %>
+          <%= link_to({ action: :preview, id: dir }, class: 'outdated') do %>
+            <div>OUTDATED</div>
+            <%= body %>
+          <% end %>
+        <% else %>
+          <%= link_to(action: :preview, id: dir) do %>
+            <div></div>
+            <%= body %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+<div class="footer">
+  <div class="info"></div>
+  <div class="actions">
+    <% if @directories.any?{ |dir| dir.last_run < @latest_run } %>
+      <%= button_to 'Remove Outdated', url_for(action: :destroy_outdated), method: :delete, class: 'reject' %>
+    <% end %>
+    <% if @directories.any?(&:challenger?) %>
+      <%= button_to 'Accept All', url_for(action: :accept_all), method: :post, class: 'accept' %>
+    <% end %>
+  </div>
+</div>

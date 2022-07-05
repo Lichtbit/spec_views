@@ -1,0 +1,32 @@
+<div class="iframes">
+  <div class="w-100">
+    <h2>Champion</h2>
+    <iframe src="<%= url_for(action: :show) %>"></iframe>
+  </div>
+</div>
+<div class="footer">
+  <div class="info">
+    <div>
+      <%= @directory.controller_name %>
+    </div>
+    <div>
+      <%= @directory.method %>
+    </div>
+    <div>
+      <%= @directory.description %>
+    </div>
+  </div>
+  <div class="actions">
+    <%= link_to 'Index', url_for(action: :index), class: 'index btn' %>
+    <% if @previous %>
+      <%= link_to 'Previous', url_for(action: :preview, id: @previous), class: 'previous btn', disabled: true %>
+    <% else %>
+      <span class="previous btn disabled">Previous</span>
+    <% end %>
+    <% if @next %>
+      <%= link_to 'Next', url_for(action: :preview, id: @next), class: 'next btn' %>
+    <% else %>
+      <span class="previous btn disabled">Next</span>
+    <% end %>
+  </div>
+</div>
