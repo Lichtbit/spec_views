@@ -36,6 +36,12 @@ module SpecViews
       @directory = directory
     end
 
+    def diff
+      @champion = get_view(filename('view'), html_safe: false)
+      @challenger = get_view(filename('challenger'), html_safe: false)
+      @directory = directory
+    end
+
     def preview
       @directory = directory
       @next = directories[directories.index(@directory) + 1]
@@ -140,9 +146,11 @@ module SpecViews
       directories.detect { |dir| dir.to_param == params[:id] }
     end
 
-    def get_view(filename = nil)
+    def get_view(filename = nil, html_safe: true)
       filename ||= pdf? ? 'view.pdf' : 'view.html'
-      File.read(file_path(filename)).html_safe # rubocop:disable Rails/OutputSafety
+      content = File.read(file_path(filename))
+      content = content.html_safe if html_safe # rubocop:disable Rails/OutputSafety
+      content
     rescue Errno::ENOENT
       ''
     end

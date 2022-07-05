@@ -57,8 +57,8 @@
           justify-content: stretch;
       }
 
-      .iframes > .w-100 {
-        width: calc(100% - 5px);
+      .w-100 {
+        width: 100%;
       }
 
       iframe {
@@ -214,6 +214,34 @@
         padding: 0 1rem;
         text-align: center;
         width: 4rem;
+      }
+
+      #diff-settings {
+        box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.65);
+        margin: 0;
+        padding: 1rem;
+      }
+
+      #diff-settings span, #diff-settings label {
+        margin-right: 1rem;
+      }
+      #diff-settings span {
+        margin-right: 1rem;
+      }
+
+      #diff-challenger, #diff-champion {
+        display: none;
+      }
+
+      #diff-result {
+        margin-top: 1rem;
+        padding: 0 1rem;
+      }
+      #diff-result ins {
+        color: #9dd795;
+      }
+      #diff-result del {
+        color: #e39ca2;
       }
     </style>
   </head>

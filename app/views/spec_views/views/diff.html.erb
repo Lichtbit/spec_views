@@ -1,0 +1,16 @@
+<div class="iframes">
+  <div class="w-100">
+    <div id="diff-settings">
+      <span>Diff</span>
+      <label><input type="radio" name="diff_type" value="diffChars" checked> Characters</label>
+      <label><input type="radio" name="diff_type" value="diffWords"> Words</label>
+      <label><input type="radio" name="diff_type" value="diffLines"> Lines</label>
+    </div>
+    <div id="diff-champion"><%= @champion %></div>
+    <div id="diff-challenger"><%= @challenger %></div>
+    <pre id="diff-result"></pre>
+  </div>
+</div>
+<%= render 'directory_footer', directory: @directory %>
+
+<%= javascript_include_tag 'spec_views/diff' %>

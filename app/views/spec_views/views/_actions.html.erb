@@ -1,0 +1,11 @@
+<div class="actions">
+  <%= link_to 'Index', url_for(action: :index), class: 'index btn' %>
+  <% unless action_name == 'compare' %>
+    <%= link_to 'Compare', url_for(action: :compare), class: 'compare btn' %>
+  <% end %>
+  <% unless action_name == 'diff' %>
+    <%= link_to 'Diff', url_for(action: :diff), class: 'diff btn' %>
+  <% end %>
+  <%= button_to 'Reject', url_for(action: :reject), class: 'reject' %>
+  <%= button_to 'Accept', url_for(action: :accept), class: 'accept' %>
+</div>

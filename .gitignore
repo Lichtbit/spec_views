@@ -8,4 +8,5 @@ spec/dummy/node_modules/
 spec/dummy/yarn-error.log
 spec/dummy/storage/
 spec/dummy/tmp/
+spec/dummy/spec/fixtures/views/*/last_run.txt
 /spec_views-*.gem

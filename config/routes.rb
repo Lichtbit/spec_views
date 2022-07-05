@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       end
       member do
         get :compare
+        get :diff
         get :preview
         post :accept
         post :reject
