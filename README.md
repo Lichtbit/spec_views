@@ -25,12 +25,12 @@ Ignore some generated files in your .gitignore:
 ```
 
 ## Usage
-Replace selected RSpec `it` methods with `render`:
+Replace selected RSpec `it` methods with `it renders`:
 
 ```ruby
 RSpec.describe HomeController, type: :controller do
   describe 'GET #show' do
-    render 'homepage' do
+    it_renders 'the homepage' do
       get :show
     end
   end

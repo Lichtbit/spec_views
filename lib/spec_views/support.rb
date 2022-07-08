@@ -152,12 +152,13 @@ module SpecViews
     end
 
     module SpecViewExample
-      def render(description = nil, focus: nil, pending: nil, status: :ok, &block)
+      def it_renders(description = nil, focus: nil, pending: nil, status: :ok, &block)
         context do # rubocop:disable RSpec/MissingExampleGroupArgument
           render_views
           options = {}
           options[:focus] = focus unless focus.nil?
           options[:pending] = pending unless pending.nil?
+          description = "renders #{description}" if description.is_a?(String)
           it(description, options) do
             instance_eval(&block)
             spec_view.write_last_run
