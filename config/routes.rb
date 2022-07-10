@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   namespace :spec_views do
     root to: redirect('spec_views/views')

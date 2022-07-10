@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 describe SpecViews::Engine do
@@ -5,4 +7,3 @@ describe SpecViews::Engine do
     expect(described_class).to be < Rails::Engine
   end
 end
- 

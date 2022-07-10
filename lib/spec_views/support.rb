@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require "timecop"
+require 'timecop'
 
 module SpecViews
   module Support
     module SpecViewExample
       def it_renders(description = nil, focus: nil, pending: nil, status: :ok, &block)
-        context do # rubocop:disable RSpec/MissingExampleGroupArgument
+        context do
           render_views
           options = {}
           options[:focus] = focus unless focus.nil?
@@ -23,7 +23,7 @@ module SpecViews
     RSpec.configure do |c|
       c.extend SpecViewExample, type: :controller
       c.before(:suite) do |_example|
-        $_spec_view_time = Time.zone.now
+        $_spec_view_time = Time.zone.now # rubocop:disable Style/GlobalVars
       end
       c.before(type: :controller) do |example|
         @_spec_view_example = example
@@ -38,11 +38,11 @@ module SpecViews
 
     matchers = [
       [:match_html_fixture, SpecViews::HtmlMatcher],
-      [:match_pdf_fixture, SpecViews::PdfMatcher],
+      [:match_pdf_fixture, SpecViews::PdfMatcher]
     ]
 
     matchers.each do |matcher|
-      RSpec::Matchers.define matcher.first do |expected|
+      RSpec::Matchers.define matcher.first do |_expected|
         chain :for_status do |status|
           @status = status
         end
@@ -50,7 +50,7 @@ module SpecViews
         match do |actual|
           example = @matcher_execution_context.instance_variable_get('@_spec_view_example')
           dir_name = example.full_description.strip.gsub(/[^0-9A-Za-z.\-]/, '_').gsub('__', '_')
-          run_time = $_spec_view_time
+          run_time = $_spec_view_time # rubocop:disable Style/GlobalVars
           @status ||= :ok
           @matcher = matcher.second.new(
             actual,
@@ -61,9 +61,9 @@ module SpecViews
           return @matcher.match?
         end
 
-        failure_message do |actual|
+        failure_message do |_actual|
           "#{@matcher.failure_message} " \
-          "Review the challenger: #{Rails.configuration.spec_views.ui_url}"
+            "Review the challenger: #{Rails.configuration.spec_views.ui_url}"
         end
       end
     end

@@ -1,0 +1,21 @@
+
+AllCops:
+  Exclude:
+    - spec/dummy/bin/*
+    - spec/dummy/db/schema.rb
+  NewCops: enable
+
+Gemspec/RequireMFA:
+  Enabled: false
+
+Gemspec/RequiredRubyVersion:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false

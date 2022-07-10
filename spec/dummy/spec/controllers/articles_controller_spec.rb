@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 require 'spec_views/support'
 
 RSpec.describe ArticlesController, type: :controller do
-  describe "GET #new" do
-    it_renders "the form" do
+  describe 'GET #new' do
+    it_renders 'the form' do
       get :new
     end
 
@@ -14,23 +16,23 @@ RSpec.describe ArticlesController, type: :controller do
     end
   end
 
-  describe "GET #index" do
+  describe 'GET #index' do
     render_views
-    it "renders the listing" do
+    it 'renders the listing' do
       get :index
       expect(response).not_to match_html_fixture
     end
   end
 
-  describe "GET #show" do
+  describe 'GET #show' do
     render_views
-    it "renders the page" do
+    it 'renders the page' do
       get :show, params: { id: 1 }
       expect(response).not_to match_html_fixture
     end
   end
 
-  describe "GET #download", focus: true do
+  describe 'GET #download', focus: true do
     render_views
     it 'sends PDF one' do
       get :download, params: { id: 'one', format: :pdf }

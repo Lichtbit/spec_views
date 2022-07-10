@@ -46,7 +46,7 @@ module SpecViews
       @directory = directory
       @next = directories[directories.index(@directory) + 1]
       index = directories.index(@directory)
-      @previous = directories[index - 1] if index > 0
+      @previous = directories[index - 1] if index.positive?
     end
 
     def accept
@@ -95,7 +95,7 @@ module SpecViews
     def get_view(filename = nil, html_safe: true)
       filename ||= pdf? ? 'view.pdf' : 'view.html'
       content = File.read(file_path(filename))
-      content = content.html_safe if html_safe # rubocop:disable Rails/OutputSafety
+      content = content.html_safe if html_safe
       content
     rescue Errno::ENOENT
       ''
@@ -112,7 +112,7 @@ module SpecViews
     end
 
     def pdf?
-      params[:id] && params[:id].end_with?('__pdf')
+      params[:id]&.end_with?('__pdf')
     end
 
     def accept_directory(id)
