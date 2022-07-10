@@ -1,7 +1,8 @@
 class SpecViews::Directory
   attr_reader :path
 
-  def self.for_dir_name(dir_name)
+  def self.for_dir_name(dir_name, content_type: :html)
+    dir_name = "#{dir_name}__pdf" if content_type == :pdf
     new(Rails.root.join(Rails.configuration.spec_views.directory, dir_name))
   end
 
@@ -80,7 +81,11 @@ class SpecViews::Directory
   private
 
   def splitted_name
-    @splitted_name ||= name.to_s.split(/_(DELETE|GET|PATCH|POST|PUT)_/)
+    @splitted_name ||= begin
+      split = name.to_s.split(/_(DELETE|GET|PATCH|POST|PUT)_/)
+      split = ['', '', split[0]] if split.size == 1
+      split
+    end
   end
 
   def pdf?

@@ -78,67 +78,9 @@ module SpecViews
 
     private
 
-    class Directory
-      attr_reader :path
-
-      def initialize(path)
-        @path = path
-      end
-
-      def basename
-        path.basename
-      end
-
-      def to_param
-        basename.to_s
-      end
-
-      def name
-        basename
-      end
-
-      def challenger?
-        File.file?(path.join('challenger.html')) || File.file?(path.join('challenger.pdf'))
-      end
-
-      def controller_name
-        splitted_name.first.gsub(/Controller(_.*)$/, 'Controller').gsub(/Controller$/, '').gsub('_', '::')
-      end
-
-      def method
-        splitted_name.second[0, 3]
-      end
-
-      def description
-        splitted_name.third.gsub(/__pdf$/, '').humanize
-      end
-
-      def last_run
-        @last_run ||= begin
-          Time.zone.parse(File.read(path.join('last_run.txt')))
-        rescue Errno::ENOENT
-          Time.zone.at(0)
-        end
-      end
-
-      def delete!
-        FileUtils.remove_dir(path)
-      end
-
-      private
-
-      def splitted_name
-        @splitted_name ||= begin
-          split = name.to_s.split(/_(DELETE|GET|PATCH|POST|PUT)_/)
-          split = ['', '', split[0]] if split.size == 1
-          split
-        end
-      end
-    end
-
     def directories
       @directories ||= Pathname.new(directory_path).children.select(&:directory?).map do |path|
-        Directory.new(path)
+        SpecViews::Directory.new(path)
       end.sort_by(&:basename)
     end
 
