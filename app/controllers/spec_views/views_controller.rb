@@ -37,6 +37,10 @@ module SpecViews
     end
 
     def diff
+      if pdf?
+        redirect_to action: :compare
+        return
+      end
       @champion = get_view(filename('view'), html_safe: false)
       @challenger = get_view(filename('challenger'), html_safe: false)
       @directory = directory

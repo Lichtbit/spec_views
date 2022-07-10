@@ -10,5 +10,5 @@
       <%= directory.description %>
     </div>
   </div>
-  <%= render 'actions' %>
+  <%= render 'actions', diffable: !directory.binary? %>
 </div>

@@ -3,7 +3,7 @@
   <% unless action_name == 'compare' %>
     <%= link_to 'Compare', url_for(action: :compare), class: 'compare btn' %>
   <% end %>
-  <% unless action_name == 'diff' %>
+  <% if action_name != 'diff' && diffable %>
     <%= link_to 'Diff', url_for(action: :diff), class: 'diff btn' %>
   <% end %>
   <%= button_to 'Reject', url_for(action: :reject), class: 'reject' %>

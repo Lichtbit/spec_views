@@ -81,6 +81,14 @@ module SpecViews
       File.write(last_run_path, time)
     end
 
+    def pdf?
+      name.to_s.ends_with?('__pdf')
+    end
+
+    def binary?
+      pdf?
+    end
+
     private
 
     def splitted_name
@@ -89,14 +97,6 @@ module SpecViews
         split = ['', '', split[0]] if split.size == 1
         split
       end
-    end
-
-    def pdf?
-      name.to_s.ends_with?('__pdf')
-    end
-
-    def binary?
-      pdf?
     end
 
     def file_extension
