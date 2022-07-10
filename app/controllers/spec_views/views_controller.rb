@@ -128,7 +128,11 @@ module SpecViews
       private
 
       def splitted_name
-        @splitted_name ||= name.to_s.split(/_(DELETE|GET|PATCH|POST|PUT)_/)
+        @splitted_name ||= begin
+          split = name.to_s.split(/_(DELETE|GET|PATCH|POST|PUT)_/)
+          split = ['', '', split[0]] if split.size == 1
+          split
+        end
       end
     end
 
