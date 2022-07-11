@@ -4,7 +4,8 @@ module SpecViews
   class Directory
     attr_reader :path
 
-    def self.for_dir_name(dir_name, content_type: :html)
+    def self.for_description(description, content_type: :html)
+      dir_name = description.strip.gsub(/[^0-9A-Za-z.\-]/, '_').gsub('__', '_')
       dir_name = "#{dir_name}__pdf" if content_type == :pdf
       new(Rails.root.join(Rails.configuration.spec_views.directory, dir_name))
     end
@@ -30,15 +31,15 @@ module SpecViews
     end
 
     def controller_name
-      splitted_name.first.gsub(/Controller(_.*)$/, 'Controller').gsub(/Controller$/, '').gsub('_', '::')
+      splitted_description.first.gsub(/Controller(_.*)$/, 'Controller').gsub(/Controller$/, '').gsub('_', '::')
     end
 
     def method
-      splitted_name.second[0, 3]
+      splitted_description.second[0, 3]
     end
 
-    def description
-      splitted_name.third.gsub(/__pdf$/, '').humanize
+    def description_tail
+      splitted_description.third.gsub(/__pdf$/, '').humanize
     end
 
     def last_run
@@ -81,6 +82,21 @@ module SpecViews
       File.write(last_run_path, time)
     end
 
+    def description_path
+      path.join('description.txt')
+    end
+
+    def write_description(description)
+      FileUtils.mkdir_p(path)
+      File.write(description_path, description)
+    end
+
+    def description
+      File.read(description_path)
+    rescue Errno::ENOENT
+      name
+    end
+
     def pdf?
       name.to_s.ends_with?('__pdf')
     end
@@ -91,9 +107,9 @@ module SpecViews
 
     private
 
-    def splitted_name
-      @splitted_name ||= begin
-        split = name.to_s.split(/_(DELETE|GET|PATCH|POST|PUT)_/)
+    def splitted_description
+      @splitted_description ||= begin
+        split = description.to_s.split(/\s(DELETE|GET|PATCH|POST|PUT)\s/)
         split = ['', '', split[0]] if split.size == 1
         split
       end

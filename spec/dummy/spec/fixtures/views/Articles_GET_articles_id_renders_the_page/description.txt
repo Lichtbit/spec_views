@@ -1,0 +1,1 @@
+Articles GET /articles/:id renders the page

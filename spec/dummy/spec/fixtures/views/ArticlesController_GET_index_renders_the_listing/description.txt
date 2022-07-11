@@ -1,0 +1,1 @@
+ArticlesController GET #index renders the listing

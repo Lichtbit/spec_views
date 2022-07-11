@@ -1,0 +1,1 @@
+Articles GET /articles/new  renders the form

@@ -6,9 +6,9 @@ module SpecViews
 
     delegate :champion_html, to: :directory
 
-    def initialize(response, dir_name, run_time:, expected_status: :ok)
+    def initialize(response, description, run_time:, expected_status: :ok)
       @response = response
-      @directory = SpecViews::Directory.for_dir_name(dir_name)
+      @directory = SpecViews::Directory.for_description(description)
       @status_match = response_status_match?(response, expected_status)
       @match = @status_match && challenger_html == champion_html
       @directory.write_last_run(run_time)
@@ -17,7 +17,10 @@ module SpecViews
       @failure_message = 'View has changed.'
       @failure_message = 'View has been added.' if champion_html.nil?
       @failure_message = "Unexpected response status #{response.status}." unless status_match?
-      @directory.write_challenger(challenger_html) if status_match?
+      return unless status_match?
+      
+      @directory.write_description(description)
+      @directory.write_challenger(sanitized_body)
     end
 
     def match?

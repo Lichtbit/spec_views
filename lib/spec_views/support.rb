@@ -53,12 +53,12 @@ matchers.each do |matcher|
 
     match do |actual|
       example = @matcher_execution_context.instance_variable_get('@_spec_view_example')
-      dir_name = example.full_description.strip.gsub(/[^0-9A-Za-z.\-]/, '_').gsub('__', '_')
+      description = example.full_description
       run_time = $_spec_view_time # rubocop:disable Style/GlobalVars
       @status ||= :ok
       @matcher = matcher.second.new(
         actual,
-        dir_name,
+        description,
         expected_status: @status,
         run_time: run_time
       )
