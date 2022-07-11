@@ -18,7 +18,7 @@ module SpecViews
       @failure_message = 'View has been added.' if champion_html.nil?
       @failure_message = "Unexpected response status #{response.status}." unless status_match?
       return unless status_match?
-      
+
       @directory.write_description(description)
       @directory.write_challenger(sanitized_body)
     end
