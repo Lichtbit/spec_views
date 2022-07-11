@@ -1,50 +1,44 @@
-# frozen_string_literal: true
-
 require 'rails_helper'
 
-RSpec.describe ArticlesController, type: :controller do
-  describe 'GET #new' do
+RSpec.describe "Articles", type: :request do
+  describe 'GET /articles/new' do
     it_renders 'the form' do
-      get :new
+      get new_article_path
     end
 
-    render_views
     it 'renders the form' do
-      get :new
+      get new_article_path
       expect(response).to match_html_fixture
     end
   end
 
-  describe 'GET #index' do
-    render_views
+  describe 'GET /articles' do
     it 'renders the listing' do
-      get :index
+      get articles_path
       expect(response).not_to match_html_fixture
     end
   end
 
-  describe 'GET #show' do
-    render_views
+  describe 'GET /articles/:id' do
     it 'renders the page' do
-      get :show, params: { id: 1 }
+      get article_path(1)
       expect(response).not_to match_html_fixture
     end
   end
 
-  describe 'GET #download' do
-    render_views
+  describe 'GET /articles/:id/download' do
     it 'sends PDF one' do
-      get :download, params: { id: 'one', format: :pdf }
+      get download_article_path(:one, format: :pdf)
       expect(response).to match_pdf_fixture
     end
 
     it 'sends PDF two' do
-      get :download, params: { id: 'two', format: :pdf }
+      get download_article_path(:two, format: :pdf)
       expect(response).not_to match_pdf_fixture
     end
 
     it 'sends PDF three' do
-      get :download, params: { id: 'three', format: :pdf }
+      get download_article_path(:three, format: :pdf)
       expect(response).not_to match_pdf_fixture
     end
   end

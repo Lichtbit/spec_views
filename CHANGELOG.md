@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Added
+- Introduce real RSpec matcher match_html_fixture (see [README](./README.md#installation)).
+- Add request specs as prefered spec type.
+
+### Changed
+- Rename `render` into `it_renders` and add "renders" to the description automtically. `it_renders` cannot be used for PDF responses anymore.
 
 ## [1.1.1] - 2021-01-18
 ### Changed
