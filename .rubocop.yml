@@ -11,6 +11,9 @@ Gemspec/RequireMFA:
 Gemspec/RequiredRubyVersion:
   Enabled: false
 
+Metrics/AbcSize:
+  Enabled: false
+
 Metrics/BlockLength:
   Enabled: false
 

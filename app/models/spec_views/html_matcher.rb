@@ -1,53 +1,31 @@
 # frozen_string_literal: true
 
 module SpecViews
-  class HtmlMatcher
-    attr_reader :response, :directory, :failure_message
-
+  class HtmlMatcher < BaseMatcher
     delegate :champion_html, to: :directory
 
-    def initialize(response, description, run_time:, expected_status: :ok)
-      @response = response
-      @directory = SpecViews::Directory.for_description(description)
-      @status_match = response_status_match?(response, expected_status)
-      @match = @status_match && challenger_html == champion_html
-      @directory.write_last_run(run_time)
-      return if match?
+    protected
 
-      @failure_message = 'View has changed.'
-      @failure_message = 'View has been added.' if champion_html.nil?
-      @failure_message = "Unexpected response status #{response.status}." unless status_match?
-      return unless status_match?
-
-      @directory.write_description(description)
-      @directory.write_challenger(sanitized_body)
+    def subject_name
+      'View'
     end
 
-    def match?
-      @match
+    def content_type
+      :html
     end
 
-    def status_match?
-      @status_match
+    def challenger_body
+      sanitized_body
+    end
+
+    def match_challenger
+      champion_html == challenger_body
     end
 
     private
 
-    def challenger_html
-      sanitized_body
-    end
-
-    def response_status_match?(response, expected_status)
-      response.status == expected_status ||
-        response.message.parameterize.underscore == expected_status.to_s
-    end
-
     def sanitized_body
-      remove_pack_digests_from_body(remove_digests_from_body(body))
-    end
-
-    def body
-      response.body
+      remove_pack_digests_from_body(remove_digests_from_body(@extractor.body))
     end
 
     def remove_digests_from_body(body)
