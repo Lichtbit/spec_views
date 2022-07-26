@@ -199,8 +199,18 @@
       .directories > a > :last-child {
         display: flex;
         flex: 1 0 auto;
-        width: 50rem;
+        width: calc(100vw - 8rem - 1rem);
         align-items: center;
+      }
+      @media screen and (min-width: 1300px) {
+        .directories > a > :last-child {
+          width: 75vw;
+        }
+      }
+      @media screen and (min-width: 2500px) {
+        .directories > a > :last-child {
+          width: 65vw;
+        }
       }
       .directories > a > :last-child > :nth-child(1) {
         flex-shrink: 0;
