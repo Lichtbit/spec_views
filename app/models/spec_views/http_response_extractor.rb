@@ -9,11 +9,12 @@ module SpecViews
       @status_match = response_status_match?(response, expected_status)
       return if @status_match
 
+
       @failure_message = "Unexpected response status #{response.status}."
     end
 
     def extractor_failure?
-      @status_match
+      failure_message.present?
     end
 
     def body

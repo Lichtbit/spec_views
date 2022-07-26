@@ -35,11 +35,11 @@ module SpecViews
     end
 
     def method
-      splitted_description.second[0, 3]
+      splitted_description.second[0, 4]
     end
 
     def description_tail
-      splitted_description.third.gsub(/__pdf$/, '').humanize
+      splitted_description.third.gsub(/__pdf$/, '')
     end
 
     def last_run
@@ -101,6 +101,10 @@ module SpecViews
       name.to_s.ends_with?('__pdf')
     end
 
+    def mailer?
+      @mailer ||= name.to_s.start_with?(/[a-zA-Z0-9:]+Mailer[^a-zA-Z0-9]/)
+    end
+
     def binary?
       pdf?
     end
@@ -109,7 +113,14 @@ module SpecViews
 
     def splitted_description
       @splitted_description ||= begin
-        split = description.to_s.split(/\s(DELETE|GET|PATCH|POST|PUT)\s/)
+        if mailer?
+          split = description.to_s.match(/(\A[a-zA-Z0-9:]+)(Mailer)(.*)/)
+          split = split[1..3]
+          split[0] += 'Mailer'
+          split[1] = 'MAIL'
+        else
+          split = description.to_s.split(/\s(DELETE|GET|PATCH|POST|PUT)\s/)
+        end
         split = ['', '', split[0]] if split.size == 1
         split
       end

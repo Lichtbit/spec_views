@@ -81,6 +81,21 @@ RSpec.describe "Articles", type: :request do
 end
 ```
 
+### Mailer specs
+Compare HTML mailers. `match_html_fixture` tries to find the HTML part of your mail automatically:
+
+```ruby
+RSpec.describe NotificationsMailer, :type => :mailer do
+  describe '#notify' do
+    let(:mail) { NotificationsMailer.signup }
+
+    it 'renders the body' do
+      expect(mail).to match_html_fixture
+    end
+  end
+end
+```
+
 ### Controller specs
 Prefer request specs over controller specs. If you still want to use controller specs enable the `render_views` feature:
 

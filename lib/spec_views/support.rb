@@ -26,7 +26,7 @@ RSpec.configure do |c|
   c.before(:suite) do |_example|
     $_spec_view_time = Time.zone.now # rubocop:disable Style/GlobalVars
   end
-  %i[controller request].each do |type|
+  %i[controller mailer request].each do |type|
     c.extend SpecViews::Support::SpecViewExample, type: type
     c.before(type: type) do |example|
       @_spec_view_example = example
@@ -39,6 +39,7 @@ RSpec.configure do |c|
     end
   end
 end
+
 
 matchers = [
   [:match_html_fixture, SpecViews::HtmlMatcher],
@@ -54,13 +55,15 @@ matchers.each do |matcher|
     match do |actual|
       example = @matcher_execution_context.instance_variable_get('@_spec_view_example')
       description = example.full_description
+      type = example.metadata[:type]
       run_time = $_spec_view_time # rubocop:disable Style/GlobalVars
       @status ||= :ok
       @matcher = matcher.second.new(
         actual,
         description,
         expected_status: @status,
-        run_time: run_time
+        run_time: run_time,
+        type: type
       )
       return @matcher.match?
     end
