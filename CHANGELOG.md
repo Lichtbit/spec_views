@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [2.0.0] - 2022-07-26
 ### Added
 - Introduce real RSpec matcher match_html_fixture (see [README](./README.md#installation)).
 - Add request specs as prefered spec type.
