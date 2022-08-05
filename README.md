@@ -85,13 +85,24 @@ end
 Compare HTML mailers. `match_html_fixture` tries to find the HTML part of your mail automatically:
 
 ```ruby
-RSpec.describe NotificationsMailer, :type => :mailer do
+RSpec.describe NotificationsMailer, type: :mailer do
   describe '#notify' do
     let(:mail) { NotificationsMailer.signup }
 
     it 'renders the body' do
       expect(mail).to match_html_fixture
     end
+  end
+end
+```
+
+### Feature specs
+Compare pages from feature specs:
+
+```ruby
+RSpec.describe 'Articles', type: :feature do
+  it 'are shown as list' do
+    expect(page).to match_html_fixture
   end
 end
 ```

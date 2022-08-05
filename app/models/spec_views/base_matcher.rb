@@ -13,7 +13,7 @@ module SpecViews
       @directory = SpecViews::Directory.for_description(description, content_type: content_type)
       @extractor_failure = @extractor.extractor_failure?
       @match = !extractor_failure? && match_challenger
-      @directory.write_last_run(run_time) if champion_html
+      directory.write_meta(description, run_time, type, content_type) if champion_html
       return if match?
 
       if extractor_failure?
@@ -24,8 +24,7 @@ module SpecViews
       @failure_message = "#{subject_name} has changed."
       @failure_message = "#{subject_name} has been added." if champion_html.nil?
 
-      @directory.write_last_run(run_time)
-      @directory.write_description(description)
+      directory.write_meta(description, run_time, type, content_type)
       @directory.write_challenger(challenger_body)
     end
 
@@ -56,6 +55,7 @@ module SpecViews
     end
 
     def extractor_class
+      return CapybaraSessionExtractor if type == :feature
       return MailMessageExtractor if type == :mailer
 
       HttpResponseExtractor

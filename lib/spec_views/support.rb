@@ -26,7 +26,7 @@ RSpec.configure do |c|
   c.before(:suite) do |_example|
     $_spec_view_time = Time.zone.now # rubocop:disable Style/GlobalVars
   end
-  %i[controller mailer request].each do |type|
+  %i[controller feature mailer request].each do |type|
     c.extend SpecViews::Support::SpecViewExample, type: type
     c.before(type: type) do |example|
       @_spec_view_example = example

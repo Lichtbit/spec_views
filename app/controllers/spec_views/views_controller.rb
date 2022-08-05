@@ -116,7 +116,7 @@ module SpecViews
     end
 
     def pdf?
-      params[:id]&.end_with?('__pdf')
+      directory.content_type.pdf?
     end
 
     def accept_directory(id)

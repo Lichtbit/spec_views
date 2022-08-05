@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Added
+- Introduce match_html_fixture for feature specs.
+
+### Changed
+- Replace `description.txt` and `last_run.txt` with combined and extended `meta.txt`.
 
 ## [2.0.0] - 2022-07-26
 ### Added
