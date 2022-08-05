@@ -6,11 +6,12 @@ module SpecViews
 
     def self.for_description(description, content_type: :html)
       dir_name = description.strip.gsub(/[^0-9A-Za-z.\-]/, '_').gsub('__', '_')
-      new(Rails.root.join(Rails.configuration.spec_views.directory, dir_name))
+      new(Rails.root.join(Rails.configuration.spec_views.directory, dir_name), content_type)
     end
 
-    def initialize(path)
+    def initialize(path, content_type = nil)
       @path = path
+      @content_type = ActiveSupport::StringInquirer.new(content_type.to_s) if content_type
     end
 
     def basename
@@ -23,10 +24,6 @@ module SpecViews
 
     def name
       basename
-    end
-
-    def challenger?
-      File.file?(path.join('challenger.html')) || File.file?(path.join('challenger.pdf'))
     end
 
     def controller_name
@@ -57,6 +54,10 @@ module SpecViews
 
     def challenger_path
       path.join("challenger.#{file_extension}")
+    end
+
+    def challenger?
+      File.file?(challenger_path)
     end
 
     def write_challenger(content)
@@ -102,9 +103,11 @@ module SpecViews
     end
 
     def content_type
-      ActiveSupport::StringInquirer.new(meta[3])
-    rescue Errno::ENOENT
-      :response
+      @content_type ||= begin
+        ActiveSupport::StringInquirer.new(meta[3])
+      rescue Errno::ENOENT
+        :response
+      end
     end
 
     def binary?

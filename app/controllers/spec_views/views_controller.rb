@@ -19,16 +19,16 @@ module SpecViews
     end
 
     def show
-      view = filename('view')
-      view = filename('challenger') if params[:view] == 'challenger'
-      if pdf?
+      path = directory.champion_path
+      path = directory.challenger_path if params[:view] == 'challenger'
+      if directory.content_type.pdf?
         send_data(
-          get_view(view),
+          get_view(path),
           filename: 'a.pdf',
           type: 'application/pdf', disposition: 'inline'
         )
       else
-        render html: get_view(view)
+        render html: get_view(path)
       end
     end
 
@@ -37,12 +37,12 @@ module SpecViews
     end
 
     def diff
-      if pdf?
+      if directory.content_type.pdf?
         redirect_to action: :compare
         return
       end
-      @champion = get_view(filename('view'), html_safe: false)
-      @challenger = get_view(filename('challenger'), html_safe: false)
+      @champion = get_view(directory.champion_path, html_safe: false)
+      @challenger = get_view(directory.challenger_path, html_safe: false)
       @directory = directory
     end
 
@@ -54,7 +54,7 @@ module SpecViews
     end
 
     def accept
-      accept_directory(params[:id])
+      accept_directory(directory)
       redirect_to action: :index, challenger: :next
     end
 
@@ -66,8 +66,7 @@ module SpecViews
     end
 
     def reject
-      challenger = file_path(filename('challenger'))
-      FileUtils.remove_file(challenger)
+      FileUtils.remove_file(directory.challenger_path)
       redirect_to action: :index, challenger: :next
     end
 
@@ -104,34 +103,17 @@ module SpecViews
       directories.detect { |dir| dir.to_param == params[:id] }
     end
 
-    def get_view(filename = nil, html_safe: true)
-      filename ||= pdf? ? 'view.pdf' : 'view.html'
-      content = File.read(file_path(filename))
+    def get_view(path, html_safe: true)
+      content = File.read(path)
       content = content.html_safe if html_safe
       content
     rescue Errno::ENOENT
       ''
     end
 
-    def file_path(filename, id: nil)
-      id ||= params[:id]
-      id = id.to_param if id.respond_to?(:to_param)
-      directory_path.join(id, filename)
-    end
-
-    def filename(base = 'view')
-      pdf? ? "#{base}.pdf" : "#{base}.html"
-    end
-
-    def pdf?
-      directory.content_type.pdf?
-    end
-
-    def accept_directory(id)
-      champion = file_path(filename('view'), id: id)
-      challenger = file_path(filename('challenger'), id: id)
-      FileUtils.copy_file(challenger, champion)
-      FileUtils.remove_file(challenger)
+    def accept_directory(dir)
+      FileUtils.copy_file(dir.challenger_path, dir.champion_path)
+      FileUtils.remove_file(dir.challenger_path)
     end
   end
 end
