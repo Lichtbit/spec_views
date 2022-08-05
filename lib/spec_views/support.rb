@@ -40,7 +40,6 @@ RSpec.configure do |c|
   end
 end
 
-
 matchers = [
   [:match_html_fixture, SpecViews::HtmlMatcher],
   [:match_pdf_fixture, SpecViews::PdfMatcher]

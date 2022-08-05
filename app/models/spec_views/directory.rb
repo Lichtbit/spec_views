@@ -74,7 +74,7 @@ module SpecViews
         description.to_s.gsub("\n", ' '),
         run_time.to_s,
         spec_type.to_s,
-        content_type.to_s,
+        content_type.to_s
       ]
       File.write(meta_path, lines.join("\n"))
     end

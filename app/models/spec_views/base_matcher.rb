@@ -17,7 +17,7 @@ module SpecViews
       return if match?
 
       if extractor_failure?
-        @failure_message = @extractor.failure_message 
+        @failure_message = @extractor.failure_message
         return
       end
 

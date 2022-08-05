@@ -9,7 +9,7 @@ module SpecViews
       @body = extract_body(mail)
       return if body.present?
 
-      @failure_message = "Failed to find mail part"
+      @failure_message = 'Failed to find mail part'
     end
 
     def extractor_failure?
@@ -20,7 +20,8 @@ module SpecViews
       return part.raw_source if part.respond_to?(:raw_source) && part.raw_source.present?
       return extract_body(part.body) if part.respond_to?(:body)
       return part if part.is_a?(String)
-      return if nil unless part.respond_to?(:parts)
+
+      return if !part.respond_to?(:parts) && nil
 
       part.parts.map do |inner_part|
         extract_body(inner_part)
