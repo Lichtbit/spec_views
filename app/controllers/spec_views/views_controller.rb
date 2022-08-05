@@ -85,7 +85,15 @@ module SpecViews
     def directories
       @directories ||= Pathname.new(directory_path).children.select(&:directory?).map do |path|
         SpecViews::Directory.new(path)
-      end.sort_by(&:basename)
+      end
+      latest_run = @directories.map(&:last_run).max
+
+      @directories.sort_by! do |dir|
+        prefix = '3-'
+        prefix = '2-' if dir.last_run < latest_run
+        prefix = '1-' if dir.challenger?
+        "#{prefix}#{dir.basename}"
+      end
     end
 
     def directory_path

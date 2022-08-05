@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 - Replace `description.txt` and `last_run.txt` with combined and extended `meta.txt`.
+- List challenged and outdated views first.
 
 ## [2.0.0] - 2022-07-26
 ### Added
