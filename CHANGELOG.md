@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Changed
+- Switch back to `last_run.txt` for better git integration.
 
 ## [3.0.0] - 2022-08-08
 ### Added

@@ -69,11 +69,11 @@ module SpecViews
       path.join('meta.txt')
     end
 
-    def write_meta(description, run_time, spec_type, content_type)
+    def write_meta(description, spec_type, content_type)
       FileUtils.mkdir_p(path)
       lines = [
         description.to_s.gsub("\n", ' '),
-        run_time.to_s,
+        '',
         spec_type.to_s,
         content_type.to_s
       ]
@@ -88,12 +88,6 @@ module SpecViews
       meta[0]
     rescue Errno::ENOENT
       name
-    end
-
-    def last_run
-      Time.zone.parse(meta[1])
-    rescue Errno::ENOENT
-      Time.zone.at(0)
     end
 
     def spec_type
@@ -112,6 +106,21 @@ module SpecViews
 
     def binary?
       content_type.pdf?
+    end
+
+    def last_run_path
+      path.join('last_run.txt')
+    end
+
+    def write_last_run(run_time)
+      FileUtils.mkdir_p(path)
+      File.write(last_run_path, run_time.to_s)
+    end
+
+    def last_run
+      Time.zone.parse(File.read(last_run_path).strip)
+    rescue Errno::ENOENT
+      Time.zone.at(0)
     end
 
     private
