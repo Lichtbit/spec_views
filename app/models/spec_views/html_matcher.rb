@@ -25,7 +25,9 @@ module SpecViews
     private
 
     def sanitized_body
-      remove_pack_digests_from_body(remove_digests_from_body(@extractor.body))
+      body = remove_pack_digests_from_body(remove_digests_from_body(@extractor.body))
+      body = sanitizer.sanitize(body) if sanitizer
+      body
     end
 
     def remove_digests_from_body(body)

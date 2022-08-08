@@ -35,7 +35,11 @@ module SpecViews
     end
 
     def sanitized_body
-      @sanitized_body ||= remove_headers_from_pdf(@extractor.body)
+      @sanitized_body ||= begin
+        body = remove_headers_from_pdf(@extractor.body)
+        body = sanitizer.sanitize(body) if sanitizer
+        body
+      end
     end
 
     def remove_headers_from_pdf(body)

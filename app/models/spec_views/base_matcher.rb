@@ -2,13 +2,14 @@
 
 module SpecViews
   class BaseMatcher
-    attr_reader :response, :directory, :failure_message, :type
+    attr_reader :response, :directory, :failure_message, :sanitizer, :type
 
     delegate :champion_html, to: :directory
 
-    def initialize(response, description, run_time:, expected_status: :ok, type: :request)
+    def initialize(response, description, run_time:, expected_status: :ok, sanitizer: nil, type: :request)
       @response = response
       @type = type
+      @sanitizer = sanitizer
       @extractor = extractor_class.new(response, expected_status: expected_status)
       @directory = SpecViews::Directory.for_description(description, content_type: content_type)
       @extractor_failure = @extractor.extractor_failure?

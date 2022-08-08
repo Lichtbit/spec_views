@@ -40,6 +40,18 @@ end
 
 Run this spec to see it failing. Open SpecView UI [http://localhost:3000/spec_views](http://localhost:3000/spec_views) on Rails development server to accept the new view. When rerunning the spec it compares its rendering with the reference view. Use SpecView UI to review, accept or reject changed views.
 
+### view_sanitizer
+Sometimes it is hard to remove dynamic elements like IDs and times. Use `view_sanitizer.gsub` to replace dynamic strings with fixed ones before comparing and saving the views automatically:
+
+```ruby
+before do
+  view_sanitizer.gsub(%r{(users/)[0-9]+}, '\1ID')
+  view_sanitizer.gsub(/value="[0-9]+"/, 'value="ID"')
+end
+```
+
+`view_sanitizer.gsub` supports the same arguments as `String#gsub` including blocks.
+
 ### it_renders
 You can also use the shortcut to skip the matcher and the word "renders" from your description:
 

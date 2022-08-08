@@ -22,10 +22,15 @@ module SpecViews
   end
 end
 
+RSpec.shared_context 'SpecViews ViewSanitizer' do
+  let(:view_sanitizer) { SpecViews::ViewSanitizer.new }
+end
+
 RSpec.configure do |c|
   c.before(:suite) do |_example|
     $_spec_view_time = Time.zone.now # rubocop:disable Style/GlobalVars
   end
+  c.include_context 'SpecViews ViewSanitizer'
   %i[controller feature mailer request].each do |type|
     c.extend SpecViews::Support::SpecViewExample, type: type
     c.before(type: type) do |example|
@@ -62,6 +67,7 @@ matchers.each do |matcher|
         description,
         expected_status: @status,
         run_time: run_time,
+        sanitizer: view_sanitizer,
         type: type
       )
       return @matcher.match?

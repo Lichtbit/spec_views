@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 ### Added
 - Introduce match_html_fixture for feature specs.
+- Introduce view_sanitizer.gsub to sanitize dynamic parts.
 
 ### Changed
 - Replace `description.txt` and `last_run.txt` with combined and extended `meta.txt`.
