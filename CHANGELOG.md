@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [3.0.0] - 2022-08-08
 ### Added
 - Introduce match_html_fixture for feature specs.
 - Introduce view_sanitizer.gsub to sanitize dynamic parts.
