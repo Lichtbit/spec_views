@@ -98,9 +98,9 @@ module SpecViews
 
     def content_type
       @content_type ||= begin
-        ActiveSupport::StringInquirer.new(meta[3])
-      rescue Errno::ENOENT
-        :response
+        ct = 'html'
+        ct = meta[3] if meta && meta[3].present?
+        ActiveSupport::StringInquirer.new(ct)
       end
     end
 
