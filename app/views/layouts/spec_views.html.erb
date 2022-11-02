@@ -111,7 +111,7 @@
         display: flex;
       }
 
-      input[type=submit], .btn {
+      [type=submit], .btn {
         display: block;
         padding: 0.5rem 0.5rem 0.4rem;
         border: 0 solid var(--dark-bg-lighter);
@@ -125,25 +125,25 @@
         min-width: 5rem;
         text-align: center;
       }
-      input[type=submit]:hover, .btn:hover {
+      [type=submit]:hover, .btn:hover {
         background: var(--dark-bg-lighter);
       }
-      input[type=submit].accept, .btn.accept {
+      [type=submit].accept, .btn.accept {
         border-color: var(--accept-bg);
         color: var(--accept-text);
       }
-      input[type=submit].reject, .btn.reject {
+      [type=submit].reject, .btn.reject {
         border-color: var(--reject-bg);
         color: var(--reject-text);
       }
-      input[type=submit].btn, .btn.btn {
+      [type=submit].btn, .btn.btn {
         border-color: var(--highlight);
       }
-      input[type=submit].disabled, .btn.disabled {
+      [type=submit].disabled, .btn.disabled {
         opacity: 0.5;
         cursor: default;
       }
-      input[type=submit].disabled:hover, .btn.disabled:hover {
+      [type=submit].disabled:hover, .btn.disabled:hover {
         background: var(--dark-bg-light);
       }
 

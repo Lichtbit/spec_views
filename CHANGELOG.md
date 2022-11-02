@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [3.2.0] - 2022-11-02
+### Added
+- Support for Rails 7, rspec-rails 6, and Ruby 3.
+
 ## [3.1.0] - 2022-08-08
 ### Changed
 - Switch back to `last_run.txt` for better git integration.
