@@ -83,8 +83,9 @@ module SpecViews
 
     def directories
       @directories ||= Pathname.new(directory_path).children.select(&:directory?).map do |path|
+        next unless File.file?("#{path}/meta.txt")
         SpecViews::Directory.new(path)
-      end
+      end.compact
       latest_run = @directories.map(&:last_run).max
 
       @directories.sort_by! do |dir|

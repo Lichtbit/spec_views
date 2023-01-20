@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Changed
+- Skip abandoned spec view directories.
 
 ## [3.2.0] - 2022-11-02
 ### Added
