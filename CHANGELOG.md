@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [3.3.0] - 2023-10-31
 ### Added
 - Add Batch Diff to accept identical changes with one click.
 
