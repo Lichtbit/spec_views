@@ -38,6 +38,9 @@
 <div class="footer">
   <div class="info"></div>
   <div class="actions">
+    <% if @directories.any?(&:challenger?) %>
+      <%= link_to 'Batch Diff', url_for(action: :batch), class: 'diff btn' %>
+    <% end %>
     <% if @directories.any?{ |dir| dir.last_run < @latest_run } %>
       <%= button_to 'Remove Outdated', url_for(action: :destroy_outdated), method: :delete, class: 'reject' %>
     <% end %>

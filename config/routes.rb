@@ -6,8 +6,10 @@ Rails.application.routes.draw do
 
     resources :views, only: %i[index show] do
       collection do
+        get :batch
         delete :destroy_outdated
         post :accept_all
+        post :batch_accept
       end
       member do
         get :compare

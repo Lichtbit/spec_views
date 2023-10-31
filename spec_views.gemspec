@@ -18,6 +18,7 @@ Gem::Specification.new do |spec|
 
   spec.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
 
+  spec.add_dependency 'diff-lcs', '~> 1.5'
   spec.add_dependency 'rails', '>= 5.0', '< 8.0'
   spec.add_dependency 'rspec-rails', '>= 5.0', '< 7.0'
   spec.add_dependency 'timecop', '~> 0.0'

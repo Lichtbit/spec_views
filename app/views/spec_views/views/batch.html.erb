@@ -1,0 +1,27 @@
+<div class="iframes">
+  <div class="w-100">
+    <div id="diff-settings">
+      <span>Batch Diff</span>
+      <label><input type="radio" name="diff_type" value="diffChars" checked> Characters</label>
+      <label><input type="radio" name="diff_type" value="diffWords"> Words</label>
+      <label><input type="radio" name="diff_type" value="diffLines"> Lines</label>
+    </div>
+    <div id="diff-champion"><%= @change.champion %></div>
+    <div id="diff-challenger"><%= @change.patched_champion %></div>
+    <pre id="diff-result"></pre>
+  </div>
+</div>
+<div class="footer">
+  <div class="info">
+    <div>
+      <%= @change.count %> Views with this Changes
+    </div>
+  </div>
+  <div class="actions">
+    <%= link_to 'Index', url_for(action: :index), class: 'index btn' %>
+    <%= button_to "Accept Change for #{@change.count} Views", url_for(action: :batch_accept), { class: 'accept', params: { hash: @change.hash } } %>
+  </div>
+</div>
+
+
+<%= javascript_include_tag 'spec_views/diff' %>

@@ -46,10 +46,19 @@ module SpecViews
       path.join("view.#{file_extension}")
     end
 
+    def champion?
+      File.file?(champion_path)
+    end
+
     def champion_html
       File.read(champion_path)
     rescue Errno::ENOENT
       nil
+    end
+
+    def write_champion(content)
+      FileUtils.mkdir_p(path)
+      File.open(champion_path, binary? ? 'wb' : 'w') { |f| f.write(content) }
     end
 
     def challenger_path
@@ -60,9 +69,19 @@ module SpecViews
       File.file?(challenger_path)
     end
 
+    def challenger_html
+      File.read(challenger_path)
+    rescue Errno::ENOENT
+      nil
+    end
+
     def write_challenger(content)
       FileUtils.mkdir_p(path)
       File.open(challenger_path, binary? ? 'wb' : 'w') { |f| f.write(content) }
+    end
+
+    def remove_challenger
+      FileUtils.remove_file(challenger_path)
     end
 
     def meta_path

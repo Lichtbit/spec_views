@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'diff/lcs'
+
 module SpecViews
   class ViewsController < ApplicationController
     skip_authorization_check if respond_to?(:skip_authorization_check)
@@ -15,6 +17,21 @@ module SpecViews
         redirect_to(action: :compare, id: first)
       else
         redirect_to(action: :index, challenger: nil)
+      end
+    end
+
+    def batch
+      @change = BatchDiff.new(directories).biggest_change
+      redirect_to(url_for(action: :index), notice: 'No identical changes found') unless @change
+    end
+
+    def batch_accept
+      batch_diff = BatchDiff.new(directories)
+      batch_diff.accept_by_hash!(params[:hash])
+      if batch_diff.changes.size > 1
+        redirect_to(action: :batch)
+      else
+        redirect_to(action: :index)
       end
     end
 
@@ -114,7 +131,7 @@ module SpecViews
 
     def accept_directory(dir)
       FileUtils.copy_file(dir.challenger_path, dir.champion_path)
-      FileUtils.remove_file(dir.challenger_path)
+      dir.remove_challenger
     end
   end
 end
