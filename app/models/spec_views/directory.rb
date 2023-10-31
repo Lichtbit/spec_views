@@ -5,7 +5,7 @@ module SpecViews
     attr_reader :path
 
     def self.for_description(description, content_type: :html)
-      dir_name = description.strip.gsub(/[^0-9A-Za-z.\-]/, '_').gsub('__', '_')
+      dir_name = description.strip.gsub(/[^0-9A-Za-z.-]/, '_').gsub('__', '_')
       new(Rails.root.join(Rails.configuration.spec_views.directory, dir_name), content_type)
     end
 

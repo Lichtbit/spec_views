@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SpecViews
   class ViewSanitizer
     delegate :each, to: :@sanitizers

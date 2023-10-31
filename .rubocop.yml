@@ -11,6 +11,17 @@ Gemspec/RequireMFA:
 Gemspec/RequiredRubyVersion:
   Enabled: false
 
+Lint/LiteralAsCondition:
+  Exclude:
+    - app/models/spec_views/mail_message_extractor.rb
+
+Lint/StructNewOverride:
+  Enabled: false
+
+Lint/UnusedMethodArgument:
+  Exclude:
+    - app/models/spec_views/mail_message_extractor.rb
+
 Metrics/AbcSize:
   Enabled: false
 
@@ -20,7 +31,17 @@ Metrics/BlockLength:
 Metrics/ClassLength:
   Enabled: false
 
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
 Metrics/MethodLength:
+  Enabled: false
+
+Metrics/ParameterLists:
+  Exclude:
+    - app/models/spec_views/base_matcher.rb
+
+Metrics/PerceivedComplexity:
   Enabled: false
 
 Style/Documentation:

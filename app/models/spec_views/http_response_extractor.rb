@@ -25,7 +25,7 @@ module SpecViews
     def response_status_match?(response, expected_status)
       # Use "#{response.message}" to ensure local encoding
       response.status == expected_status ||
-        "#{response.message}".parameterize.underscore == expected_status.to_s
+        response.message.to_s.parameterize.underscore == expected_status.to_s
     end
   end
 end
