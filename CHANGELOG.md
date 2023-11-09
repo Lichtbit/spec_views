@@ -2,8 +2,10 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [3.3.1] - 2023-11-09
 ### Changed
-- Fix handling of response message encoding
+- Fix handling of response message encoding.
 
 ## [3.3.0] - 2023-10-31
 ### Added
