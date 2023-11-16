@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+
+## [3.4.0] - 2023-11-16
 ### Added
 - Add Reject All to remove all challengers with one click.
 
