@@ -27,7 +27,7 @@ module SpecViews
     end
 
     def controller_name
-      splitted_description.first.gsub(/Controller(_.*)$/, 'Controller').gsub(/Controller$/, '').gsub('_', '::')
+      splitted_description.first.gsub(/Controller(_.*)$/, 'Controller').gsub(/Controller$/, '')
     end
 
     def method

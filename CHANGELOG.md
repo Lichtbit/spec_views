@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Changed
+- Fix presentation of controller/request spec name.
 
 ## [3.3.1] - 2023-11-09
 ### Changed
