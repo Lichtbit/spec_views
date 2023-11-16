@@ -82,8 +82,15 @@ module SpecViews
       redirect_to action: :index
     end
 
+    def reject_all
+      directories.each do |dir|
+        dir.remove_challenger if dir.challenger?
+      end
+      redirect_to action: :index
+    end
+
     def reject
-      FileUtils.remove_file(directory.challenger_path)
+      directory.remove_challenger
       redirect_to action: :index, challenger: :next
     end
 

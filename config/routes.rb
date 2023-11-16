@@ -9,6 +9,7 @@ Rails.application.routes.draw do
         get :batch
         delete :destroy_outdated
         post :accept_all
+        post :reject_all
         post :batch_accept
       end
       member do

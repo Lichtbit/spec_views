@@ -2,6 +2,9 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Added
+- Add Reject All to remove all challengers with one click.
+
 ### Changed
 - Fix presentation of controller/request spec name.
 
