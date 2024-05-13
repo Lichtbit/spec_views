@@ -79,6 +79,23 @@ RSpec.describe "Articles", type: :request do
 end
 ```
 
+### Add an affix
+If you have two requests with the same description, you can add an affix to the generated name:
+
+```ruby
+RSpec.describe "Articles", type: :request do
+  describe 'GET /articles' do
+    it 'renders the listing' do
+      get articles_path
+      expect(response).to match_html_fixture.with_affix('only 10')
+
+      get articles_path(all: '1')
+      expect(response).to match_html_fixture.with_affix('all')
+    end
+  end
+end
+```
+
 ### PDF matching
 If your request responds with a PDF you can compare it as well:
 
