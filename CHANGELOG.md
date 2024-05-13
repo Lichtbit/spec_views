@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Added
+- Add affix for multiple use in one request spec.
 
 ## [3.4.0] - 2023-11-16
 ### Added

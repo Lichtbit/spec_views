@@ -55,10 +55,14 @@ matchers.each do |matcher|
     chain :for_status do |status|
       @status = status
     end
+    chain :with_affix do |affix|
+      @affix = affix
+    end
 
     match do |actual|
       example = @matcher_execution_context.instance_variable_get('@_spec_view_example')
       description = example.full_description
+      description = "#{description}-#{@affix}" if @affix.present?
       type = example.metadata[:type]
       run_time = $_spec_view_time # rubocop:disable Style/GlobalVars
       @status ||= :ok
