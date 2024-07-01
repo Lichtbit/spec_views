@@ -25,6 +25,12 @@ module SpecViews
       @failure_message = "#{subject_name} has changed."
       @failure_message = "#{subject_name} has been added." if champion_html.nil?
 
+      if ENV["SPEC_VIEWS_DEBUG_OUTPUT"]
+        puts "====DEBUG===: #{description}"
+        p challenger_body
+        puts "====DEBUGEND===: #{description}"
+      end
+
       directory.write_last_run(run_time)
       directory.write_meta(description, type, content_type)
       @directory.write_challenger(challenger_body)
