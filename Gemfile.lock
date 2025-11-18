@@ -1,9 +1,10 @@
 PATH
   remote: .
   specs:
-    spec_views (1.1.1)
-      rails (~> 5.0)
-      rspec-rails (~> 5.0)
+    spec_views (3.6.0)
+      diff-lcs (~> 1.5)
+      rails (>= 5.0, < 8.0)
+      rspec-rails (>= 5.0, < 7.0)
       timecop (~> 0.0)
 
 GEM
@@ -145,4 +146,4 @@ DEPENDENCIES
   sqlite3
 
 BUNDLED WITH
-   2.1.4
+   2.6.8
