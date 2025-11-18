@@ -44,5 +44,9 @@ Metrics/ParameterLists:
 Metrics/PerceivedComplexity:
   Enabled: false
 
+Naming/PredicateMethod:
+  AllowedMethods:
+    - match_challenger
+
 Style/Documentation:
   Enabled: false
