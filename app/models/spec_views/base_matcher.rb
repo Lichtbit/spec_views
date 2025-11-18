@@ -25,6 +25,9 @@ module SpecViews
       @failure_message = "#{subject_name} has changed."
       @failure_message = "#{subject_name} has been added." if champion_html.nil?
 
+      preview = diff_preview
+      @failure_message += preview if preview.present?
+
       directory.write_last_run(run_time)
       directory.write_meta(description, type, content_type)
       @directory.write_challenger(challenger_body)
@@ -54,6 +57,10 @@ module SpecViews
 
     def content_type
       raise NotImplementedError
+    end
+
+    def diff_preview
+      nil
     end
 
     def extractor_class

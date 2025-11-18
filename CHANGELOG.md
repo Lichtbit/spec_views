@@ -2,6 +2,8 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
+### Added
+- Add diff preview for HTML matchings.
 
 ## [3.5.0] - 2024-05-13
 ### Added
