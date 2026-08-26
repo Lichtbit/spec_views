@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [3.6.1] - 2026-08-26
+### Added
+- Add support for rspec-rails 7.
+
 ## [3.6.0] - 2025-11-18
 ### Added
 - Add diff preview for HTML matchings.
