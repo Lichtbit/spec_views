@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [3.6.2] - 2026-09-22
+### Added
+- Add support for rails 8.0
+
 ## [3.6.1] - 2026-08-26
 ### Added
 - Add support for rspec-rails 7.
