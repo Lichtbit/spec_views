@@ -27,7 +27,7 @@ module SpecViews
 
     def batch_accept
       batch_diff = BatchDiff.new(directories)
-      batch_diff.accept_by_hash!(params[:hash])
+      batch_diff.accept_by_key!(params[:key])
       if batch_diff.changes.size > 1
         redirect_to(action: :batch)
       else
@@ -126,7 +126,8 @@ module SpecViews
     end
 
     def directory
-      directories.detect { |dir| dir.to_param == params[:id] }
+      directories.detect { |dir| dir.to_param == params[:id] } ||
+        raise(ActionController::RoutingError, "Unknown spec view #{params[:id]}")
     end
 
     def get_view(path, html_safe: true)

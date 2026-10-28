@@ -21,7 +21,7 @@ module SpecViews
       return extract_body(part.body) if part.respond_to?(:body)
       return part if part.is_a?(String)
 
-      return if !part.respond_to?(:parts) && nil
+      return unless part.respond_to?(:parts)
 
       part.parts.map do |inner_part|
         extract_body(inner_part)

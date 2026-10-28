@@ -54,6 +54,14 @@ RSpec.describe SpecViews::PdfMatcher, type: :model do
     end
   end
 
+  context 'when the body is frozen' do
+    let(:scenario) { 'pdf_one' }
+
+    before { allow(test_response).to receive(:body).and_return(body.freeze) }
+
+    it { expect(matcher).to be_a_match }
+  end
+
   describe '#failure_message' do
     subject { matcher.failure_message }
 

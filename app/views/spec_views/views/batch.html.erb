@@ -19,7 +19,7 @@
   </div>
   <div class="actions">
     <%= link_to 'Index', url_for(action: :index), class: 'index btn' %>
-    <%= button_to "Accept Change for #{@change.count} Views", url_for(action: :batch_accept), { class: 'accept', params: { hash: @change.hash } } %>
+    <%= button_to "Accept Change for #{@change.count} Views", url_for(action: :batch_accept), { class: 'accept', params: { key: @change.key } } %>
   </div>
 </div>
 
