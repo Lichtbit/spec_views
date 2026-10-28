@@ -7,7 +7,7 @@ RSpec.describe SpecViews::PdfMatcher, type: :model do
   let(:expected_status) { :ok }
   let(:headers) { {} }
   let(:actual_file) { scenario }
-  let(:body) { File.read(Rails.root.join("public/#{actual_file}.pdf")) }
+  let(:body) { Rails.public_path.join("#{actual_file}.pdf").binread }
   let(:dir_name) { scenario }
   let(:test_response) do
     ActionDispatch::TestResponse.new(status, headers, body)
@@ -52,6 +52,14 @@ RSpec.describe SpecViews::PdfMatcher, type: :model do
       let(:actual_file) { 'pdf_two' }
       it { is_expected.not_to be_a_match }
     end
+  end
+
+  context 'when the body is frozen' do
+    let(:scenario) { 'pdf_one' }
+
+    before { allow(test_response).to receive(:body).and_return(body.freeze) }
+
+    it { expect(matcher).to be_a_match }
   end
 
   describe '#failure_message' do

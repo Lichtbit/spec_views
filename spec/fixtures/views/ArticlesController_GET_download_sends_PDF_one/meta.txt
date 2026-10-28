@@ -1,0 +1,4 @@
+ArticlesController GET #download sends PDF one
+
+controller
+pdf

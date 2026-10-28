@@ -44,7 +44,7 @@ module SpecViews
 
     def remove_headers_from_pdf(body)
       body
-        .force_encoding('BINARY')
+        .b
         .gsub(%r{^/CreationDate \(.*\)$}, '')
         .gsub(%r{^/ModDate \(.*\)$}, '')
         .gsub(%r{^/ID \[<.+><.+>\]$}, '')

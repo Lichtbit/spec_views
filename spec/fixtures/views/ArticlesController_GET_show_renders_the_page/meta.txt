@@ -1,0 +1,4 @@
+ArticlesController GET #show renders the page
+
+controller
+html

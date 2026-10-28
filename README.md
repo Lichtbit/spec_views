@@ -160,7 +160,25 @@ Configure SpecView by adding and modifying lines to `config/environments/test.rb
 ```ruby
 config.spec_views.directory = 'spec/fixtures/views'
 config.spec_views.ui_url = 'http://localhost:3000/spec_views'
+config.spec_views.freeze_time = '2024-02-29 00:17:42'
 ```
+
+### Frozen time
+Controller, feature, mailer and request specs run with a frozen time (via `travel_to`) so rendered dates stay stable. The default is `2024-02-29 00:17:42` in `Time.zone`. Set `freeze_time` to another time (`String` or `Time`) or disable it with `false`.
+
+### Routes
+The SpecViews UI is only routed in local environments (`development` and `test`), because it writes and deletes fixture files.
+
+## Development
+The specs run against a dummy app for each supported Rails version (`spec/dummy_7_2`, `spec/dummy_8_0`, `spec/dummy_8_1`). The dummy app is chosen by the Rails version of the bundle:
+
+```bash
+$ bundle exec rake                                            # Rails 8.1, specs and RuboCop
+$ BUNDLE_GEMFILE=gemfiles/rails_7_2.gemfile bundle exec rspec # Rails 7.2
+$ bundle exec rake spec:all                                   # every Rails version
+```
+
+Start the UI of a dummy app with `spec/dummy_8_1/bin/rails server`.
 
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).

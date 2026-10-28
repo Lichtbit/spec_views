@@ -1,9 +1,16 @@
 # frozen_string_literal: true
 
-require 'timecop'
-
 module SpecViews
   module Support
+    class << self
+      attr_accessor :run_time
+
+      def freeze_time
+        time = Rails.configuration.spec_views.freeze_time
+        time.is_a?(String) ? Time.zone.parse(time) : time
+      end
+    end
+
     module SpecViewExample
       def it_renders(description = nil, focus: nil, pending: nil, status: :ok, &block)
         context do
@@ -27,20 +34,19 @@ RSpec.shared_context 'SpecViews ViewSanitizer' do
 end
 
 RSpec.configure do |c|
-  c.before(:suite) do |_example|
-    $_spec_view_time = Time.zone.now # rubocop:disable Style/GlobalVars
+  c.before(:suite) do
+    SpecViews::Support.run_time = Time.zone.now
   end
   c.include_context 'SpecViews ViewSanitizer'
   %i[controller feature mailer request].each do |type|
     c.extend SpecViews::Support::SpecViewExample, type: type
-    c.before(type: type) do |example|
-      @_spec_view_example = example
-    end
+    c.include ActiveSupport::Testing::TimeHelpers, type: type
     c.before(:each, type: type) do
-      Timecop.freeze(Time.zone.local(2024, 2, 29, 0o0, 17, 42))
+      time = SpecViews::Support.freeze_time
+      travel_to(time) if time
     end
     c.after(:each, type: type) do
-      Timecop.return
+      travel_back
     end
   end
 end
@@ -60,19 +66,17 @@ matchers.each do |matcher|
     end
 
     match do |actual|
-      example = @matcher_execution_context.instance_variable_get('@_spec_view_example')
+      example = RSpec.current_example
       description = example.full_description
       description = "#{description}-#{@affix}" if @affix.present?
-      type = example.metadata[:type]
-      run_time = $_spec_view_time # rubocop:disable Style/GlobalVars
       @status ||= :ok
       @matcher = matcher.second.new(
         actual,
         description,
         expected_status: @status,
-        run_time: run_time,
+        run_time: SpecViews::Support.run_time,
         sanitizer: view_sanitizer,
-        type: type
+        type: example.metadata[:type]
       )
       return @matcher.match?
     end

@@ -1,22 +1,10 @@
 
 AllCops:
   Exclude:
-    - spec/dummy/bin/*
-    - spec/dummy/db/schema.rb
+    - gemfiles/vendor/**/*
+    - vendor/**/*
   NewCops: enable
-
-Gemspec/RequireMFA:
-  Enabled: false
-
-Gemspec/RequiredRubyVersion:
-  Enabled: false
-
-Lint/LiteralAsCondition:
-  Exclude:
-    - app/models/spec_views/mail_message_extractor.rb
-
-Lint/StructNewOverride:
-  Enabled: false
+  SuggestExtensions: false
 
 Lint/UnusedMethodArgument:
   Exclude:
