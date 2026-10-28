@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :views, only: %i[index show] do
       collection do
         get :batch
+        get :script
         delete :destroy_outdated
         post :accept_all
         post :reject_all

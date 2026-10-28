@@ -5,6 +5,8 @@ require 'diff/lcs'
 module SpecViews
   class ViewsController < ApplicationController
     skip_authorization_check if respond_to?(:skip_authorization_check)
+    # Rails rejects JavaScript responses to GET requests under forgery protection.
+    skip_forgery_protection only: :script
     layout 'spec_views'
 
     def index
@@ -18,6 +20,14 @@ module SpecViews
       else
         redirect_to(action: :index, challenger: nil)
       end
+    end
+
+    # Served as a file, so a Content Security Policy allowing 'self' is enough.
+    def script
+      js = %w[jsdiff diff].map do |name|
+        SpecViews::Engine.root.join("app/assets/javascripts/spec_views/#{name}.js").read
+      end
+      send_data js.join("\n"), type: 'text/javascript', disposition: 'inline'
     end
 
     def batch

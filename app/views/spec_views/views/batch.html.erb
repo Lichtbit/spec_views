@@ -24,4 +24,4 @@
 </div>
 
 
-<%= javascript_include_tag 'spec_views/diff' %>
+<%= tag.script(src: url_for(action: :script, id: nil, format: :js), nonce: content_security_policy_nonce) %>
