@@ -11,16 +11,25 @@ Gem::Specification.new do |spec|
   spec.version     = SpecViews::VERSION
   spec.authors     = ['Sebastian Gaul']
   spec.email       = ['sebastian.gaul@lichtbit.com']
-  spec.homepage    = 'https://lichtbit.com'
+  spec.homepage    = 'https://github.com/Lichtbit/spec_views'
   spec.summary     = 'Render views from controller specs for comparision'
   spec.description = 'Render views from controller specs for comparision'
   spec.license     = 'MIT'
 
-  spec.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
+  spec.required_ruby_version = '>= 3.2'
 
-  spec.add_dependency 'diff-lcs', '~> 1.5'
-  spec.add_dependency 'rails', '>= 5.0'
-  spec.add_dependency 'rspec-rails', '>= 5.0'
+  spec.metadata = {
+    'source_code_uri' => spec.homepage,
+    'changelog_uri' => "#{spec.homepage}/blob/master/CHANGELOG.md",
+    'bug_tracker_uri' => "#{spec.homepage}/issues",
+    'rubygems_mfa_required' => 'true'
+  }
 
-  spec.add_development_dependency 'sqlite3'
+  spec.files = Dir['{app,config,lib}/**/*', 'MIT-LICENSE', 'README.md', 'CHANGELOG.md']
+
+  spec.add_dependency 'actionpack', '>= 7.2', '< 9'
+  spec.add_dependency 'activesupport', '>= 7.2', '< 9'
+  spec.add_dependency 'diff-lcs', '>= 1.5', '< 3'
+  spec.add_dependency 'railties', '>= 7.2', '< 9'
+  spec.add_dependency 'rspec-rails', '>= 7.0', '< 9'
 end

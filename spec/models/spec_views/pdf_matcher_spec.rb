@@ -7,7 +7,7 @@ RSpec.describe SpecViews::PdfMatcher, type: :model do
   let(:expected_status) { :ok }
   let(:headers) { {} }
   let(:actual_file) { scenario }
-  let(:body) { File.read(Rails.root.join("public/#{actual_file}.pdf")) }
+  let(:body) { Rails.public_path.join("#{actual_file}.pdf").binread }
   let(:dir_name) { scenario }
   let(:test_response) do
     ActionDispatch::TestResponse.new(status, headers, body)

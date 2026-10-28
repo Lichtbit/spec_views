@@ -1,1 +1,0 @@
-ArticlesController GET #new  renders the form
