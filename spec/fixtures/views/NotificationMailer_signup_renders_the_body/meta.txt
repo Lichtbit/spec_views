@@ -1,0 +1,4 @@
+NotificationMailer#signup renders the body
+
+mailer
+html

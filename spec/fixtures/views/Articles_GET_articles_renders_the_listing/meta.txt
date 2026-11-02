@@ -1,0 +1,4 @@
+Articles GET /articles renders the listing
+
+request
+html

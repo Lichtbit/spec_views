@@ -1,0 +1,4 @@
+Articles GET /articles/:id/download sends PDF two
+
+request
+pdf

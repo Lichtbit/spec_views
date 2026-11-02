@@ -3,6 +3,22 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [4.0.0] - Unreleased
+### Changed
+- **Breaking:** Require Rails >= 7.2 and Ruby >= 3.2.
+- **Breaking:** Depend on `railties`, `actionpack` and `activesupport` instead of the `rails` meta gem.
+- **Breaking:** Replace Timecop with `travel_to`. The `timecop` dependency is gone.
+- **Breaking:** Rename `SpecViews::Directory#method` to `#http_method`.
+- **Breaking:** Remove the asset manifest `spec_views_manifest.js` and the `spec_views/diff.js` precompile entry. Drop `//= link spec_views_manifest.js` from your manifest if you added it.
+- Make the frozen time configurable with `config.spec_views.freeze_time`, `false` disables it.
+- Only draw the UI routes in local environments.
+- Serve the diff script from the UI controller, so the diff UI works with Sprockets, Propshaft or no asset pipeline. A Content Security Policy allowing `'self'` is sufficient.
+- Respond with 404 for unknown views in the UI.
+- Use `RSpec.current_example` instead of RSpec internals.
+- Fix PDF matching of frozen response bodies.
+- Fix mail extraction for objects without parts.
+- Fix fallback spec type of views without meta data.
+
 ## [3.6.2] - 2026-09-22
 ### Added
 - Add support for rails 8.0

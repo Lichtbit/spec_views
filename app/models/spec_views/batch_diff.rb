@@ -4,7 +4,18 @@ module SpecViews
   class BatchDiff
     attr_reader :directories
 
-    Change = Struct.new(:hash, :count) do
+    class Change
+      attr_reader :key
+
+      def initialize(key)
+        @key = key
+        @pairs = []
+      end
+
+      def count
+        @pairs.size
+      end
+
       def patched_champion
         Diff::LCS.patch!(champion, diff)
       end
@@ -14,17 +25,15 @@ module SpecViews
       end
 
       def add(directory, diff)
-        @pairs ||= []
         @pairs.push([directory, diff])
-        self.count += 1
       end
 
       def directory
-        @pairs&.first&.first
+        @pairs.first&.first
       end
 
       def diff
-        @pairs&.first&.second
+        @pairs.first&.second
       end
 
       def accept!
@@ -52,9 +61,9 @@ module SpecViews
               element = '\n' if element == "\n"
               [change.action, element]
             end
-            diff_hash = raw_diff.map(&:join).join
-            map[diff_hash] ||= Change.new(diff_hash, 0)
-            map[diff_hash].add(directory, diff)
+            diff_key = raw_diff.map(&:join).join
+            map[diff_key] ||= Change.new(diff_key)
+            map[diff_key].add(directory, diff)
           end
         end
         map.values.filter { |change| change.count > 1 }
@@ -65,18 +74,8 @@ module SpecViews
       changes.max_by(&:count)
     end
 
-    def accept_by_hash!(hash)
-      changes.select { |change| change.hash == hash }.map(&:accept!)
-    end
-
-    private
-
-    def get_view(path, html_safe: true)
-      content = File.read(path)
-      content = content.html_safe if html_safe
-      content
-    rescue Errno::ENOENT
-      ''
+    def accept_by_key!(key)
+      changes.select { |change| change.key == key }.map(&:accept!)
     end
   end
 end

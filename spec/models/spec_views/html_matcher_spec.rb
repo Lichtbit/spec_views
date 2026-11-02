@@ -82,7 +82,15 @@ RSpec.describe SpecViews::HtmlMatcher, type: :model do
     context 'when body is different' do
       let(:scenario) { 'known_content' }
       let(:body) { '<h1>different content</h1>' }
-      it { is_expected.to eq 'View has changed.' }
+      it do
+        is_expected.to eq <<~MESSAGE
+          View has changed.
+          First difference at line 1:
+            - <h1>known_content</h1>
+            + <h1>different content</h1>
+                  ^
+        MESSAGE
+      end
     end
   end
 end

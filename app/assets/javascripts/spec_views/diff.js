@@ -1,5 +1,3 @@
-//= require spec_views/jsdiff
-
 var a = document.getElementById('diff-champion');
 var b = document.getElementById('diff-challenger');
 var result = document.getElementById('diff-result');

@@ -289,7 +289,7 @@
   </head>
   <body>
     <% flash.each do |type, msg| %>
-      <div class="flash flash-<%= type %>"><div onclick="console.log(this.parent)"><%= msg %></div></div>
+      <div class="flash flash-<%= type %>"><div><%= msg %></div></div>
     <% end %>
     <%= yield %>
   </body>

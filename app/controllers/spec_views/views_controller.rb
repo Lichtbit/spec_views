@@ -5,6 +5,8 @@ require 'diff/lcs'
 module SpecViews
   class ViewsController < ApplicationController
     skip_authorization_check if respond_to?(:skip_authorization_check)
+    # Rails rejects JavaScript responses to GET requests under forgery protection.
+    skip_forgery_protection only: :script
     layout 'spec_views'
 
     def index
@@ -20,6 +22,14 @@ module SpecViews
       end
     end
 
+    # Served as a file, so a Content Security Policy allowing 'self' is enough.
+    def script
+      js = %w[jsdiff diff].map do |name|
+        SpecViews::Engine.root.join("app/assets/javascripts/spec_views/#{name}.js").read
+      end
+      send_data js.join("\n"), type: 'text/javascript', disposition: 'inline'
+    end
+
     def batch
       @change = BatchDiff.new(directories).biggest_change
       redirect_to(url_for(action: :index), notice: 'No identical changes found') unless @change
@@ -27,7 +37,7 @@ module SpecViews
 
     def batch_accept
       batch_diff = BatchDiff.new(directories)
-      batch_diff.accept_by_hash!(params[:hash])
+      batch_diff.accept_by_key!(params[:key])
       if batch_diff.changes.size > 1
         redirect_to(action: :batch)
       else
@@ -126,7 +136,8 @@ module SpecViews
     end
 
     def directory
-      directories.detect { |dir| dir.to_param == params[:id] }
+      directories.detect { |dir| dir.to_param == params[:id] } ||
+        raise(ActionController::RoutingError, "Unknown spec view #{params[:id]}")
     end
 
     def get_view(path, html_safe: true)

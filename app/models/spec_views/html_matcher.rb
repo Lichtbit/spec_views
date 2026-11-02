@@ -4,8 +4,6 @@ require 'diff/lcs'
 
 module SpecViews
   class HtmlMatcher < BaseMatcher
-    delegate :champion_html, to: :directory
-
     protected
 
     def subject_name

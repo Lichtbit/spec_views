@@ -30,7 +30,7 @@ module SpecViews
       splitted_description.first.gsub(/Controller(_.*)$/, 'Controller').gsub(/Controller$/, '')
     end
 
-    def method
+    def http_method
       splitted_description.second[0, 4]
     end
 
@@ -112,7 +112,7 @@ module SpecViews
     def spec_type
       ActiveSupport::StringInquirer.new(meta[2])
     rescue Errno::ENOENT
-      :response
+      ActiveSupport::StringInquirer.new('response')
     end
 
     def content_type
