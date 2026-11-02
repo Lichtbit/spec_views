@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-## [4.0.0] - Unreleased
+## [4.0.0] - 2026-11-02
 ### Changed
 - **Breaking:** Require Rails >= 7.2 and Ruby >= 3.2.
 - **Breaking:** Depend on `railties`, `actionpack` and `activesupport` instead of the `rails` meta gem.
